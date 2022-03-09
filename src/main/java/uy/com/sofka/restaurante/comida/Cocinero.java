@@ -12,8 +12,8 @@ public class Cocinero extends Entity<CocineroId> {
   private NombreCocinero nombre;
   private TelefonoCocinero telefono;
 
-  public Cocinero(CocineroId ingredienteId, NombreCocinero nombre, TelefonoCocinero telefono) {
-    super(ingredienteId);
+  public Cocinero(CocineroId cocineroId, NombreCocinero nombre, TelefonoCocinero telefono) {
+    super(cocineroId);
     this.nombre = nombre;
     this.telefono = telefono;
   }

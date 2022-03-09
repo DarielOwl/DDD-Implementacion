@@ -10,12 +10,14 @@ public class Ingrediente extends Entity<IngredienteId> {
   private Nombre nombre;
   private Descripcion descripcion;
   private Precio precio;
+  private Cantidad cantidad;
 
-  public Ingrediente(IngredienteId ingredienteId, Nombre nombre, Descripcion descripcion, Precio precio) {
+  public Ingrediente(IngredienteId ingredienteId, Nombre nombre, Descripcion descripcion, Precio precio, Cantidad cantidad) {
     super(ingredienteId);
     this.nombre = nombre;
     this.descripcion = descripcion;
     this.precio = precio;
+    this.cantidad = cantidad;
   }
 
   // metodos (setters)
@@ -30,6 +32,10 @@ public class Ingrediente extends Entity<IngredienteId> {
   public void actualizarPrecio(Precio precio) {
     this.precio = Objects.requireNonNull(precio);
   }
+
+  public void modificarCantidad(Cantidad cantidad) {
+    this.cantidad = Objects.requireNonNull(cantidad);
+  }
   
   //Getters
   public Nombre nombre() {
@@ -42,5 +48,9 @@ public class Ingrediente extends Entity<IngredienteId> {
 
   public Precio precio() {
     return precio;
+  }
+
+  public Cantidad Cantidad() {
+    return cantidad;
   }
 }
