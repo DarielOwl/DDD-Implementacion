@@ -14,11 +14,11 @@ public class NombreCocineroModificado extends DomainEvent{
     this.nombre = nombre;
   }
 
-  public CocineroId getCocineroId() {
+  public CocineroId getCocinero() {
     return cocineroId;
   }
 
-  public NombreCocinero getNombreCocinero() {
+  public NombreCocinero getNombre() {
     return nombre;
   }
   

@@ -14,11 +14,11 @@ public class TelefonoCocineroModificado extends DomainEvent{
     this.telefono = telefono;
   }
 
-  public CocineroId getCocineroId() {
+  public CocineroId getCocinero() {
     return cocineroId;
   }
 
-  public TelefonoCocinero getTelefonoCocinero() {
+  public TelefonoCocinero getTelefono() {
     return telefono;
   }
   

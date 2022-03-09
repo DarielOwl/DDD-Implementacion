@@ -1,8 +1,8 @@
 package uy.com.sofka.restaurante.comida;
 
-import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.Set;
 
 import co.com.sofka.domain.generic.AggregateEvent;
 import uy.com.sofka.restaurante.comida.events.CantidadIngredienteModificado;
@@ -24,13 +24,18 @@ public class Comida extends AggregateEvent<ComidaId> {
   protected Nombre nombre;
   protected Descripcion descripcion;
   protected Precio precio;
-  protected Map<Ingrediente, CantidadIngrediente> ingredientes;
-  protected CocineroId cocineroId;
+  protected Set<Ingrediente> ingredientes;
+  protected Cocinero cocinero;
   
   /** Constructores */
   public Comida(ComidaId comidaId, Nombre nombre, Descripcion descripcion, Precio precio) {
     super(comidaId);
     appendChange(new ComidaCreada(nombre, descripcion, precio)).apply(); //Crar obj Cliente
+  }
+
+  private Comida(ComidaId comidaId){
+    super(comidaId);
+    subscribe(new ComidaChange(this));
   }
   
   /** Metodos */
@@ -49,12 +54,14 @@ public class Comida extends AggregateEvent<ComidaId> {
     appendChange(new DescripcionModificada(descripcion)).apply();
   }
   
-  public void asignarCocinero(CocineroId cocineroId){
+  public void asignarCocinero(CocineroId cocineroId, NombreCocinero nombre, TelefonoCocinero telefono){
     Objects.requireNonNull(cocineroId);
-    appendChange(new CocineroAsignado(cocineroId)).apply();
+    Objects.requireNonNull(nombre);
+    Objects.requireNonNull(telefono);
+    appendChange(new CocineroAsignado(cocineroId, nombre, telefono)).apply();
   }
   
-  public void agregarIngrediente(IngredienteId ingredienteId, Nombre nombre, Descripcion descripcion, Precio precio, CantidadIngrediente cantidad) {
+  public void agregarIngrediente(IngredienteId ingredienteId, Nombre nombre, Descripcion descripcion, Precio precio, Cantidad cantidad) {
     Objects.requireNonNull(ingredienteId);
     Objects.requireNonNull(nombre);
     Objects.requireNonNull(descripcion);
@@ -68,7 +75,7 @@ public class Comida extends AggregateEvent<ComidaId> {
     appendChange(new IngredienteQuitado(ingredienteId)).apply();
   }
   
-  public void modificarCantidadIngrediente(IngredienteId ingredienteId, CantidadIngrediente cantidadIngrediente){
+  public void modificarCantidadIngrediente(IngredienteId ingredienteId, Cantidad cantidadIngrediente){
     Objects.requireNonNull(ingredienteId);
     Objects.requireNonNull(cantidadIngrediente);
     appendChange(new CantidadIngredienteModificado(ingredienteId, cantidadIngrediente)).apply();
@@ -117,15 +124,15 @@ public class Comida extends AggregateEvent<ComidaId> {
     return precio;
   }
   
-  public Map<Ingrediente, CantidadIngrediente> ingredientes() {
+  public Set<Ingrediente> ingredientes() {
     return ingredientes;
   }
   
   public Optional<Ingrediente> getIngredientePorId(IngredienteId ingredienteId){
-    return ingredientes().keySet().stream().filter(key -> key.identity().equals(ingredienteId)).findFirst();
+    return ingredientes().stream().filter(key -> key.identity().equals(ingredienteId)).findFirst();
   }
   
-  public CocineroId getCocineroId() {
-    return cocineroId;
+  public Cocinero getCocinero() {
+    return cocinero;
   }
 }

@@ -4,7 +4,7 @@ import co.com.sofka.domain.generic.DomainEvent;
 import uy.com.sofka.restaurante.comida.value.Descripcion;
 import uy.com.sofka.restaurante.comida.value.Nombre;
 import uy.com.sofka.restaurante.comida.value.Precio;
-import uy.com.sofka.restaurante.comida.value.CantidadIngrediente;
+import uy.com.sofka.restaurante.comida.value.Cantidad;
 import uy.com.sofka.restaurante.comida.value.IngredienteId;
 
 public class IngredienteAgregado extends DomainEvent{
@@ -12,9 +12,9 @@ public class IngredienteAgregado extends DomainEvent{
   private final Nombre nombre;
   private final Descripcion descripcion;
   private final Precio precio;
-  private final CantidadIngrediente cantidad;
+  private final Cantidad cantidad;
 
-  public IngredienteAgregado(IngredienteId ingredienteId, Nombre nombre, Descripcion descripcion, Precio precio, CantidadIngrediente cantidad) {
+  public IngredienteAgregado(IngredienteId ingredienteId, Nombre nombre, Descripcion descripcion, Precio precio, Cantidad cantidad) {
     super("sofka.comida.agregaringrediente");
     this.ingredienteId = ingredienteId;
     this.nombre = nombre;
@@ -39,7 +39,7 @@ public class IngredienteAgregado extends DomainEvent{
     return precio;
   }
 
-  public CantidadIngrediente getCantidad() {
+  public Cantidad getCantidad() {
     return cantidad;
   }
 }
