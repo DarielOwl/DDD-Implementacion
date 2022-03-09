@@ -1,5 +1,11 @@
 package uy.com.sofka.restaurante.comida.value;
 
-public class Nombre {
-  
+import co.com.sofka.domain.generic.ValueObject;
+
+public class Nombre implements ValueObject<String> {
+  @Override
+  public String value() {
+    // TODO Auto-generated method stub
+    return null;
+  }
 }

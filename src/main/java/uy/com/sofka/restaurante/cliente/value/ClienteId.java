@@ -1,5 +1,7 @@
 package uy.com.sofka.restaurante.cliente.value;
 
-public class ClienteId {
+import co.com.sofka.domain.generic.Identity;
+
+public class ClienteId extends Identity {
   
 }

@@ -1,5 +1,7 @@
 package uy.com.sofka.restaurante.comida.value;
 
-public class CocineroId {
+import co.com.sofka.domain.generic.Identity;
+
+public class CocineroId extends Identity {
   
 }
