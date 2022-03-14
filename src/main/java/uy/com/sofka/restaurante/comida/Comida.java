@@ -142,7 +142,7 @@ public class Comida extends AggregateEvent<ComidaId> {
     return ingredientes;
   }
   
-  public Cocinero getCocinero() {
+  public Cocinero cocinero() {
     return cocinero;
   }
 }
