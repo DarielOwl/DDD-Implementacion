@@ -2,7 +2,6 @@ package uy.com.sofka.restaurante.reserva;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 
 import co.com.sofka.domain.generic.AggregateEvent;
 import co.com.sofka.domain.generic.DomainEvent;
