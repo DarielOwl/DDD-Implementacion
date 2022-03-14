@@ -3,19 +3,7 @@ package uy.com.sofka.restaurante.comida;
 import java.util.HashSet;
 
 import co.com.sofka.domain.generic.EventChange;
-import uy.com.sofka.restaurante.comida.events.ComidaCreada;
-import uy.com.sofka.restaurante.comida.events.PrecioActualizado;
-import uy.com.sofka.restaurante.comida.events.NombreModificado;
-import uy.com.sofka.restaurante.comida.events.DescripcionModificada;
-import uy.com.sofka.restaurante.comida.events.CocineroAsignado;
-import uy.com.sofka.restaurante.comida.events.NombreCocineroModificado;
-import uy.com.sofka.restaurante.comida.events.TelefonoCocineroModificado;
-import uy.com.sofka.restaurante.comida.events.IngredienteAgregado;
-import uy.com.sofka.restaurante.comida.events.IngredienteQuitado;
-import uy.com.sofka.restaurante.comida.events.NombreIngredienteModificado;
-import uy.com.sofka.restaurante.comida.events.DescripcionIngredienteModificada;
-import uy.com.sofka.restaurante.comida.events.CantidadIngredienteModificado;
-import uy.com.sofka.restaurante.comida.events.PrecioIngredienteActualizado;
+import uy.com.sofka.restaurante.comida.events.*;
 
 public class ComidaChange extends EventChange{
   public ComidaChange(Comida comida){
@@ -48,10 +36,14 @@ public class ComidaChange extends EventChange{
     });
 
     apply((NombreCocineroModificado event) -> {
+      if(!comida.cocinero().identity().equals(event.getCocineroId()))
+        throw new IllegalArgumentException("EL cocinero no coincide con el de la comida");
       comida.cocinero.modificarNombre(event.getNombre());
     });
 
     apply((TelefonoCocineroModificado event) -> {
+      if(!comida.cocinero().identity().equals(event.getCocineroId()))
+        throw new IllegalArgumentException("EL cocinero no coincide con el de la comida");
       comida.cocinero.modificarTelefono(event.getTelefono());
     });
 
@@ -66,6 +58,8 @@ public class ComidaChange extends EventChange{
     });
 
     apply((IngredienteQuitado event) -> {
+      comida.getIngredientePorId(event.getIngredienteId())
+          .orElseThrow(() -> new IllegalArgumentException("No se encuentra el ingrediente de la comida"));
       comida.ingredientes.removeIf(ingrediente -> ingrediente.identity().equals(event.getIngredienteId()));
     });
 

@@ -1,5 +1,7 @@
 package uy.com.sofka.restaurante.reserva.value;
 
-public class ReservaId {
+import co.com.sofka.domain.generic.Identity;
+
+public class ReservaId extends Identity {
   
 }
